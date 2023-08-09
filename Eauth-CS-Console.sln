@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.33927.289
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eauth-CS-Console", "Eauth-CS-Console.csproj", "{BCEF8AF3-1BA5-4E54-949D-357B265729FB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BCEF8AF3-1BA5-4E54-949D-357B265729FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCEF8AF3-1BA5-4E54-949D-357B265729FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCEF8AF3-1BA5-4E54-949D-357B265729FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCEF8AF3-1BA5-4E54-949D-357B265729FB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B5DD5737-2B93-44D4-9A96-6C3C84E33CC8}
+	EndGlobalSection
+EndGlobal
