@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Security.Cryptography;
 using System.Text;
 using System.Linq;
+using System.Diagnostics;
 
 namespace Eauth
 {
@@ -186,6 +187,11 @@ namespace Eauth
             }
             else if (message == "version_outdated")
             {
+                string download_link = document.RootElement.GetProperty("download_link").GetString();
+                if (download_link != "")
+                {
+                    Process.Start(download_link);
+                }
                 LogEauthError(outdatedVersionMessage);
             }
             else if (message == "maximum_sessions_reached")
