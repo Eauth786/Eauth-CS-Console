@@ -34,7 +34,7 @@ namespace Eauth
         private string overcrowdedSessionMessage = "Session limit exceeded. Please re-launch the app!";
         private string expiredSessionMessage = "Your session has timed out. please re-launch the app!";
         private string invalidUserMessage = "Incorrect login credentials!";
-        private string bannedHwidMessage = "Access denied!";
+        private string bannedUserMessage = "Access denied!";
         private string incorrectHwidMessage = "Hardware ID mismatch. Please try again with the correct device!";
         private string expiredUserMessage = "Your subscription has ended. Please renew to continue using our service!";
         private string usedNameMessage = "Username already taken. Please choose a different username!";
@@ -153,6 +153,7 @@ namespace Eauth
                 { "sort", "init" },
                 { "appkey", applicationKey },
                 { "acckey", accountKey },
+                { "hwid", GetHardwareID() },
                 { "version", applicationVersion.ToString() }
             };
             var response = await EauthRequest(data);
@@ -202,6 +203,11 @@ namespace Eauth
             {
                 LogEauthError(document.RootElement.GetProperty("paused_message").GetString());
             }
+            else if (message == "user_is_banned")
+            {
+                LogEauthError(bannedUserMessage);
+            }
+            
         }
 
         // Register request (https://eauth.gitbook.io/eauth-api-1.1-latest/step-by-step/register)
@@ -265,9 +271,9 @@ namespace Eauth
             {
                 LogEauthError(upgradeYourEauthMessage);
             }
-            else if (message == "hwid_is_banned")
+            else if (message == "user_is_banned")
             {
-                LogEauthError(bannedHwidMessage);
+                LogEauthError(bannedUserMessage);
             }
 
             return register;
@@ -355,9 +361,9 @@ namespace Eauth
             {
                 LogEauthError(invalidUserMessage);
             }
-            else if (message == "hwid_is_banned")
+            else if (message == "user_is_banned")
             {
-                LogEauthError(bannedHwidMessage);
+                LogEauthError(bannedUserMessage);
             }
             else if (message == "hwid_incorrect")
             {
