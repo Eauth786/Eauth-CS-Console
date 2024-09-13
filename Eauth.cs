@@ -41,6 +41,8 @@ namespace Eauth
         private string invalidKeyMessage = "Invalid key. Please enter a valid key!";
         private string upgradeYourEauthMessage = "Upgrade your Eauth plan to exceed the limits!";
         private bool consoleTitleWithAppName = true; // Change your console title to the app name
+        private string invalidEmailMessage = "The email you entered is either already in use or unavailable or invalid!";
+        private string unauthorizedSessionMessage = "Unauthorized session.";
 
         /* Dynamic configuration (this refers to configuration settings that can be changed during runtime) */
         private bool init;
@@ -375,6 +377,60 @@ namespace Eauth
             }
 
             return login;
+        }
+
+        // Upgrade request (https://eauth.gitbook.io/eauth-api-1.1-latest/step-by-step/upgrade)
+        public async Task<bool> UpgradeRequest(string username, string key)
+        {
+            bool upgrade = false;
+            var data = new Dictionary<string, string>
+            {
+                { "sort", "upgrade" },
+                { "sessionid", sessionID },
+                { "username", username },
+                { "key", key }
+            };
+            var response = await EauthRequest(data);
+            JsonDocument document = JsonDocument.Parse(response);
+            string message = document.RootElement.GetProperty("message").GetString();
+            if (message == "upgrade_success")
+            {
+                // Upgrade success
+                upgrade = true;
+            }
+            else if (message == "session_unavailable")
+            {
+                LogEauthError(unavaiableSessionMessage);
+            }
+            else if (message == "account_unavailable")
+            {
+                LogEauthError(invalidUserMessage);
+            }
+            else if (message == "key_unavailable")
+            {
+                LogEauthError(invalidKeyMessage);
+            }
+            else if (message == "invalid_email")
+            {
+                LogEauthError(invalidEmailMessage);
+            }
+            else if (message == "session_unauthorized")
+            {
+                LogEauthError(unauthorizedSessionMessage);
+            }
+            else if (message == "invalid_request")
+            {
+                LogEauthError(invalidRequestMessage); // This is usually not the case
+            }
+            else if (message == "invalid_account_key")
+            {
+                LogEauthError(invalidAccountKeyMessage);
+            }
+            else if (message == "session_expired")
+            {
+                LogEauthError(expiredSessionMessage);
+            }
+            return upgrade;
         }
     }
 }
