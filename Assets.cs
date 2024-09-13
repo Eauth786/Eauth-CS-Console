@@ -200,5 +200,25 @@ namespace Eauth_CS_Console
                 Console.WriteLine(eauthClass.registeredMessage);
             }
         }
+
+        public async Task upgrade()
+        {
+            Console.Clear();
+            PrintLogo();
+            Console.WriteLine("█-Username:");
+            Console.ForegroundColor = ConsoleColor.Red;
+            var username = Console.ReadLine();
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine("█-License Key:");
+            Console.ForegroundColor = ConsoleColor.Red;
+            var LicenseKey = Console.ReadLine();
+            ClearConsole();
+            if (await eauthClass.UpgradeRequest(username, LicenseKey))
+            {
+                // Code to execute if login is successful
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("The account has been successfully upgraded.");
+            }
+        }
     }
 }
