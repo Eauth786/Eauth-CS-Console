@@ -41,7 +41,7 @@ namespace Eauth_CS_Console
             PrintLogo();
             eauthClass.InitRequest(); // Eauth init request (required)
 
-            Console.WriteLine("[ 1 ] Login       |       [ 2 ] Register");
+            Console.WriteLine("[ 1 ] Login | [ 2 ] Register | [3] Upgrade");
             var input = Console.ReadLine();
             switch (input)
             {
@@ -53,7 +53,10 @@ namespace Eauth_CS_Console
                     // Code block executed if expression equals to register input
                     register();
                     break;
-                // ...
+                case "3":
+                    // Code block executed if expression equals to register input
+                    upgrade();
+                    break;
                 default:
                     // Code block executed if expression does not match any case
                     ClearConsole();
