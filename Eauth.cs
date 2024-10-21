@@ -79,7 +79,7 @@ namespace Eauth
         private string GenerateAuthToken(string message, string appID)
         {
             long timestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
-            string authToken = timestamp.ToString().Substring(0, timestamp.ToString().Length - 2) + message + appID;
+            string authToken = timestamp.ToString().Substring(0, 4) + message + appID;
             return ComputeSHA512(authToken);
         }
 
@@ -100,7 +100,7 @@ namespace Eauth
             string message = document.RootElement.GetProperty("message").GetString();
             if (message == "init_success" || message == "login_success" || message == "register_success" || message == "var_grab_success")
             {
-                string authorizationKey = response.Headers.GetValues("Authorization").FirstOrDefault();
+                string authorizationKey = response.Headers.GetValues("Key").FirstOrDefault();
                 if (authorizationKey != GenerateAuthToken(responseContent, applicationID))
                 {
                     Environment.Exit(0);
